@@ -1,0 +1,7 @@
+packages = [
+    'pyxll',
+    'futures',
+    'pandas',
+    'pytz',
+    'stevedore',
+]
