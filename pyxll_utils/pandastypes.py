@@ -211,3 +211,4 @@ def _fix_tzinfo(x):
     if isinstance(x, dt.datetime) and x.tzinfo is None:
         x = x.replace(tzinfo=UTC)
     return x
+

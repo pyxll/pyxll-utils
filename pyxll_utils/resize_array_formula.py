@@ -162,3 +162,4 @@ def _expand_range(xl, selection):
         pass
 
     return xl.Range(top_left, bottom_right)
+

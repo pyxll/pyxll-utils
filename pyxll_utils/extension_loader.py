@@ -1,7 +1,7 @@
-""" PyXLL extension loader. 
+""" PyXLL extension loader.
 
 Loads all the extensions contributing to the pyxll.modules namespace. This
-module is supposed to be add to you pyxll.cfg file to automatically load all
+module is supposed to be added to you pyxll.cfg file to automatically load all
 the installed packages that contributes to PyXLL through setuptools.
 
 """
@@ -23,3 +23,4 @@ if len(extension_manager.names()) > 0:
     )
 else:
     logger.info('No extension loaded')
+

@@ -124,3 +124,4 @@ def _start_timer(timeout=300, interval=0.1):
 
     # start the timer
     _timer_id = timer.set_timer(int(interval * 1000), make_timer_func())
+

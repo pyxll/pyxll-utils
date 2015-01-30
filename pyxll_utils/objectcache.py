@@ -479,3 +479,4 @@ def _delete_event_handlers(*args):
     while handlers:
         handler = handlers.pop()
         del handler
+
