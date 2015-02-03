@@ -12,7 +12,7 @@ from stevedore import extension
 logger = logging.getLogger(__name__)
 
 extension_manager = extension.ExtensionManager(
-        namespace='pyxll.modules',
+        namespace='pyxll.extensions',
         invoke_on_load=True,
 )
 
