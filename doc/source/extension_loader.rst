@@ -4,19 +4,14 @@ Extension loader
 When distributing code based on PyXLL, the question of deployment needs to be
 carefully solved. The PyXLL configuration file, `pyxll.cfg`, contains the list
 of module that must be loaded to contribute functionalities to Excel. Forcing
-the user to edit its configuration file to deploy new functionalities is very
-impractical and does not scale in the context of corporate deployment.
-
-The use of `external_config` in the `pyxll.cfg` file is also not very practical
-as it can cause clash issues between PyXLL modules (shared dependencies
-between config and modules, etc.). It also require manual modifications to the
-main configuration file when deploying a new external config.
+the user to edit the configuration file to deploy new functionalities is not
+always practical and does not scale in the context of corporate deployment.
 
 The extension loader for PyXLL allows developer to contribute functionalities
 to PyXLL without the need to modify the configuration file. By exposing an
 entry point, any Python package is allowed to contribute PyxLL function, macros
 and menus in a very practical way. The extension loader relies on standard
-Python deployment process which makes it the solution of choice for deployment.
+Python deployment process which makes it a good choice for deployment.
 
 How to use it?
 --------------
