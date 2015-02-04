@@ -3,11 +3,11 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to PyXLL utilities's documentation!
+Welcome to PyXLL Utilities' documentation!
 ===========================================
 
-The PyXLL utilities packages is the toolkit for the PyXLL developers. It
-contains a set of validated modules implenting coming design patterns, useful
+The PyXLL Utilities packages is the toolkit for the PyXLL developers. It
+contains a set of validated modules implenting common design patterns, useful
 shortcuts, specific macros, type converters, etc.
 
 Contents:
