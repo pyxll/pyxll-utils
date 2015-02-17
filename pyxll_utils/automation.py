@@ -2,7 +2,7 @@
 
 import pyxll
 
-import logging	
+import logging
 _log = logging.getLogger(__name__)
 
 try:
@@ -20,7 +20,7 @@ except ImportError:
 # as it will always be the correct handle - ie the handle
 # to the correct instance of Excel.
 #
-# The window object can be wrapped as a 
+# The window object can be wrapped as a
 # win32com.client.Dispatch object to make it
 # easier to use, as shown in these examples.
 #
@@ -35,6 +35,7 @@ except ImportError:
 # see MSDN or the object browser in the Excel VBA editor.
 #
 
+
 def xl_app():
     """returns a Dispatch object for the current Excel instance"""
     # get the Excel application object from PyXLL and wrap it
@@ -46,3 +47,4 @@ def xl_app():
     win32com.client.gencache.EnsureDispatch(xl_app)
 
     return xl_app
+
