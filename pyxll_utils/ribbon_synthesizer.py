@@ -52,7 +52,6 @@ class RibbonSynthesizer(object):
     def __init__(self, default_ribbon=None):
         self.ribbon = self.parse(default_ribbon or EMPTY_RIBBON)
         self._elements_to_insert = deque()
-        self.modified = False
 
     def to_bytes(self):
         tabs = self.get_tabs(self.ribbon)
@@ -74,7 +73,6 @@ class RibbonSynthesizer(object):
         return root.find('.//{*}ribbon/{*}tabs')
 
     def submit_ribbon_tab(self, extension_name, tab_buffer):
-        self.modified = True
         root_elem = self.parse(tab_buffer)
         if root_elem.tag != 'tab':
             msg = ("Ignoring fragment from \n{}:\n{}\n"
