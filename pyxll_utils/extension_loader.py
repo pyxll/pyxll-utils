@@ -39,9 +39,19 @@ extension_manager = extension.ExtensionManager(
     invoke_kwds=invoke_kwds,
 )
 
+extension_names = extension_manager.names()
+
+if len(extension_names) > 0:
+    logger.info(
+        'Extensions loaded:\n{}'.format('\n'.join(extension_names))
+    )
+else:
+    logger.info('No extension loaded')
+
 if should_make_ribbon:
     target_dir = os.path.dirname(ribbon_path)
     try:
+        # If the ribbon dirs don't exist, make them.
         os.makedirs(target_dir)
         logger.info("Created ribbon directory: {}".format(target_dir))
     except Exception as e:
@@ -50,10 +60,3 @@ if should_make_ribbon:
     with open(ribbon_path, 'w') as f:
         f.write(ribbon_synthesizer.to_bytes())
         logger.info("Wrote extended ribbon to {}".format(ribbon_path))
-
-if len(extension_manager.names()) > 0:
-    logger.info(
-        'Extensions loaded:\n{}'.format('\n'.join(extension_manager.names()))
-    )
-else:
-    logger.info('No extension loaded')
