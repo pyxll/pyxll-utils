@@ -10,7 +10,7 @@ import logging
 from stevedore import extension
 
 from pyxll import get_config
-from ribbon_synthesizer import RibbonSynthesizer
+from .ribbon_synthesizer import RibbonSynthesizer
 
 logger = logging.getLogger(__name__)
 

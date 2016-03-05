@@ -28,7 +28,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-EMPTY_RIBBON = pkgutil.get_data('pyxll_utils.data', 'ribbon.xml')
+EMPTY_RIBBON = pkgutil.get_data('pyxll_utils', 'data/ribbon.xml')
 
 SAMPLE_RIBBON_FRAGMENT = '''\
 <tab id="pyxll_example_tab">
@@ -52,7 +52,7 @@ class RibbonSynthesizer(object):
     def __init__(self, default_ribbon=None):
         self.ribbon = self.parse(default_ribbon or EMPTY_RIBBON)
         self._elements_to_insert = deque()
-        self._modified = False
+        self.modified = False
 
     def to_bytes(self):
         tabs = self.get_tabs(self.ribbon)
@@ -74,7 +74,7 @@ class RibbonSynthesizer(object):
         return root.find('.//{*}ribbon/{*}tabs')
 
     def submit_ribbon_tab(self, extension_name, tab_buffer):
-        self._modified = True
+        self.modified = True
         root_elem = self.parse(tab_buffer)
         if root_elem.tag != 'tab':
             msg = ("Ignoring fragment from \n{}:\n{}\n"
@@ -83,7 +83,7 @@ class RibbonSynthesizer(object):
                 msg.format(extension_name, tab_buffer, SAMPLE_RIBBON_FRAGMENT))
             return
         else:
-            logger.info("Adding ribbon fragment: {}", extension_name)
+            logger.info("Adding ribbon fragment: {}".format(extension_name))
             self._elements_to_insert.append(root_elem)
 
     @staticmethod
