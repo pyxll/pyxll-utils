@@ -1,0 +1,16 @@
+<customUI xmlns="http://schemas.microsoft.com/office/2006/01/customui"
+          loadImage="pyxll.load_image">  <!-- pyxll.load_image is a built-in image loader -->
+    <ribbon>
+        <tabs>
+            <tab id="pyxll_example_tab" label="Sample">
+                <group id="Tools" label="Tools">
+                    <button id="About"
+                            size="large"
+                            label="About PyXLL"
+                            onAction="pyxll.about"
+                            image="about.png"/>
+                </group>
+            </tab>
+        </tabs>
+    </ribbon>
+</customUI>
