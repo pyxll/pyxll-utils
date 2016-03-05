@@ -5,9 +5,8 @@ from __future__ import division, print_function
 
 import logging
 import os
-import pkgutil
 import sys
-from collections import deque
+from collections import OrderedDict
 
 from lxml import etree
 
@@ -50,15 +49,24 @@ class RibbonSynthesizer(object):
         return cls(default_ribbon=default_ribbon)
 
     def __init__(self, default_ribbon=None):
-        self.ribbon = self.parse(default_ribbon or EMPTY_RIBBON)
-        self._elements_to_insert = deque()
+        self.ribbon = default_ribbon or EMPTY_RIBBON
+        self._elements_to_insert = OrderedDict()
 
-    def to_bytes(self):
-        tabs = self.get_tabs(self.ribbon)
-        while self._elements_to_insert:
-            tab = self._elements_to_insert.popleft()
+    def to_bytes(self, names=None):
+        if names is None:
+            names = sorted(self._elements_to_insert.keys())
+        ribbon = self.parse(self.ribbon)
+        tabs = self.get_tabs(ribbon)
+        for name in names:
+            try:
+                tab = self._elements_to_insert[name]
+            except KeyError:
+                logger.info("skip {}".format(name))
+                # This isn't an error. It probably just means that the
+                # requested extension didn't submit a fragment.
+                continue
             self.upsert_by_attribute(tabs, tab)
-        return self.element_as_bytes(self.ribbon)
+        return self.element_as_bytes(ribbon)
 
     @staticmethod
     def parse(buf):
@@ -75,14 +83,14 @@ class RibbonSynthesizer(object):
     def submit_ribbon_tab(self, extension_name, tab_buffer):
         root_elem = self.parse(tab_buffer)
         if root_elem.tag != 'tab':
-            msg = ("Ignoring fragment from \n{}:\n{}\n"
+            msg = ("Ignoring fragment {}:\n{}\n"
                    "Ribbons must be <tab> elements like this:\n{}")
             logger.warning(
                 msg.format(extension_name, tab_buffer, SAMPLE_RIBBON_FRAGMENT))
             return
         else:
             logger.info("Adding ribbon fragment: {}".format(extension_name))
-            self._elements_to_insert.append(root_elem)
+            self._elements_to_insert[extension_name] = root_elem
 
     @staticmethod
     def upsert_by_attribute(parent, element, attr='id'):
