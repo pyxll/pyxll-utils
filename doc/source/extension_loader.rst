@@ -123,7 +123,7 @@ The package will contain the following file:
         packages=find_packages(),
         entry_points = {
             'pyxll.extensions' : [
-                'data_analytics_extension = data_analytics.pyxll_extension:load'
+                'data_analytics = data_analytics.pyxll_extension:load'
             ]
         }
     )
@@ -132,7 +132,7 @@ Then build and install your egg, start Excel and the ewma function will be
 available. The PyXLL log file will list your extension::
 
     2015-02-03 16:15:34,510 - INFO : Extensions loaded:
-    data_analytics_extension
+    data_analytics
     ...
 
 
@@ -171,7 +171,7 @@ The package will contain the following files:
         package_data={'data_analytics': ['ribbon_tab.xml', '*.png']},
         entry_points={
             'pyxll.extensions': [
-                'data_analytics_extension = data_analytics.pyxll_extension:load'
+                'data_analytics = data_analytics.pyxll_extension:load'
             ]
         }
     )
@@ -197,5 +197,5 @@ available. The PyXLL log file will announce your extension's ribbon fragment::
     2016-03-05 12:22:48,867 - INFO : Adding ribbon fragment: data_analytics
     2016-03-05 12:22:48,867 - INFO : Wrote extended ribbon to C:\Users\EnUser\AppData\Local\Enthught\Canopy32\User\lib\site-packages\pyxll\examples\ribbon\ribbon_extended.xml
     2016-03-05 12:22:48,867 - INFO : Extensions loaded:
-    data_analytics_extension
+    data_analytics
     ...

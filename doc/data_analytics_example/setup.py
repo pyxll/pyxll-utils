@@ -10,7 +10,7 @@ setup(
     package_data={'data_analytics': ['ribbon_tab.xml', '*.png']},
     entry_points={
         'pyxll.extensions': [
-            'data_analytics_extension = data_analytics.pyxll_extension:load'
+            'data_analytics = data_analytics.pyxll_extension:load'
         ]
     }
 )
