@@ -36,8 +36,9 @@ The next time PyXLL will be started all the Python packages contributing to the
 As of this writing, PyXLL reads the configuration setting for the ribbon file
 prior to loading extensions. The solution is to rename the `ribbon`
 configuration key to `default_ribbon`, and to create a new `ribbon` with a
-value that is safe to modify. We suggest setting this new `ribbon` file to be
-right next to the `default_ribbon` like so::
+value that is safe to modify. This file doesn't need to exist yet and will be
+overwritten. We suggest setting this new `ribbon` file to be right next to the
+`default_ribbon` like so::
 
     [PYXLL]
     ...
