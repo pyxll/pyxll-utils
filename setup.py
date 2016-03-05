@@ -6,5 +6,4 @@ setup(name='pyxll_utils',
       packages=find_packages(),
       # Provides a namespace for extension points to contribute to. This
       # functionality is required by the pyxll_addons.extension_loader module
-      provides=['pyxll.extensions'],
-      package_data={'pyxll_utils': ['data/ribbon.xml']})
+      provides=['pyxll.extensions'])

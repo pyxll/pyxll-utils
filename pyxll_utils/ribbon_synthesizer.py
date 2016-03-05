@@ -27,7 +27,14 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-EMPTY_RIBBON = pkgutil.get_data('pyxll_utils', 'data/ribbon.xml')
+EMPTY_RIBBON = '''\
+<customUI xmlns="http://schemas.microsoft.com/office/2006/01/customui"
+          loadImage="pyxll.load_image">  <!-- pyxll.load_image is a built-in image loader -->
+    <ribbon>
+        <tabs>
+        </tabs>
+    </ribbon>
+</customUI>'''  # noqa
 
 SAMPLE_RIBBON_FRAGMENT = '''\
 <tab id="pyxll_example_tab">
