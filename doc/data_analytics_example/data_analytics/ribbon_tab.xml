@@ -1,0 +1,9 @@
+<tab id="data_analytics_tab" label="DataAnalytics">
+  <group id="data_analytics_group" label="Analyze">
+    <button id="data_analytics_button"
+      size="large"
+      label="Do Some Analytics!"
+      onAction="pyxll.about"
+      image="{ROOT}data_analytics_button.png"/>
+  </group>
+</tab>
