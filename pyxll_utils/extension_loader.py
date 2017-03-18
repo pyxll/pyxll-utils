@@ -57,6 +57,6 @@ if should_make_ribbon:
     except Exception as e:
         if not e.errno == errno.EEXIST:
             raise
-    with open(ribbon_path, 'w') as f:
+    with open(ribbon_path, 'wb') as f:
         f.write(ribbon_synthesizer.to_bytes())
         logger.info("Wrote extended ribbon to {}".format(ribbon_path))
