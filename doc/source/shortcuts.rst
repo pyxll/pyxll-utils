@@ -1,4 +1,4 @@
-Shortuts
+Shortcuts
 ========
 
 The decorator @xl_shortcut is used to decorate a macro function, and when
