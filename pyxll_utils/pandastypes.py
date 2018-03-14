@@ -229,8 +229,8 @@ def _fix_pywintypes(data):
     Converts any pywintypes.TimeType instances passed in to the
     conversion functions into datetime types.
 
-    This is useful if using these functions to convert a n Excel Range of
-    of values a pandas type, as pandas will crash if called with the
+    This is useful if using these functions to convert an Excel Range of
+    of values to a pandas type, as pandas will crash if called with the
     pywintypes.TimeType.
     """
     if pywintypes is None:
