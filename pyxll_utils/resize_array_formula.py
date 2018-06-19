@@ -13,43 +13,35 @@ Excel formula manually.
 The function is registered as a menu item as well as a macro and can
 be run from the menu or via the keyboard shortcut Ctrl+Shift+R.
 """
-from pyxll import xl_menu, xl_macro, get_active_object
+from pyxll import xl_menu, xl_macro, xl_app
+from win32com.client import constants
 from pywintypes import com_error
-from win32com.client import Dispatch
 import win32api
 import win32con
 import logging
-from win32com.client import constants
-
-from shortcuts import xl_shortcut
 
 _log = logging.getLogger(__name__)
 
-@xl_shortcut("Ctrl+R")
-@xl_menu("Recalculate Selection (Ctrl+R)")
+
+@xl_menu("Recalculate Selection (Ctrl+R)", shortcut="Ctrl+R")
 @xl_macro("")
 def recalc_selection():
     """
     Recalculates selection
     """
-    xl_window = get_active_object()
-    xl = Dispatch(xl_window).Application
-
+    xl = xl_app(com_package="win32com")
     selection = xl.Selection
     selection.Dirty()
     selection.Calculate()
     
 
-@xl_shortcut("Ctrl+Shift+R")
-@xl_menu("Resize Array Formula (Ctrl+Shift+R)")
+@xl_menu("Resize Array Formula (Ctrl+Shift+R)", shortcut="Ctrl+Shift+R")
 @xl_macro("")
 def resize_array_formula():
     """
     Recalculates and resizes a range to show all the results of a formula.
     """
-    xl_window = get_active_object()
-    xl = Dispatch(xl_window).Application
-
+    xl = xl_app(com_package="win32com")
     selection = xl.Selection
     formula = selection.FormulaArray
 
