@@ -64,6 +64,28 @@ except ImportError:
 UTC = pytz.timezone('UTC')
 
 
+def _index_to_rows(idx):
+    if isinstance(idx, pa.MultiIndex):
+        result = []
+        prev_row = None
+        for ix in idx:
+            row = list(ix)
+            if prev_row:
+                for i in range(len(row)-1):
+                    if row[i] != prev_row[i]:
+                        break
+                    row[i] = ''
+            result.append(list(row))
+            prev_row = list(ix)
+        return result
+    return [[x] for x in idx]
+
+
+def _index_to_cols(idx):
+    result = _index_to_rows(idx)
+    return list(map(list, zip(*result)))
+
+
 @xl_return_type("dataframe", "var")
 def _dataframe_to_var(df):
     """return a list of lists that excel can understand"""
@@ -76,12 +98,7 @@ def _dataframe_to_var(df):
         index_header = [str(x) or "" for x in df.index.names]
 
     if isinstance(df.columns, pa.MultiIndex):
-        result = [([""] * len(index_header)) + list(z) for z in zip(*list(df.columns))]
-        for header in result:
-            for i in range(1, len(header) - 1):
-                if header[-i] == header[-i-1]:
-                    header[-i] = ""
-
+        result = [([""] * len(index_header)) + x for x in _index_to_cols(df.columns)]
         if index_header:
             column_names = [x or "" for x in df.columns.names]
             for i, col_name in enumerate(column_names):
@@ -95,20 +112,12 @@ def _dataframe_to_var(df):
     else:
         if index_header and df.columns.name:
             index_header[-1] += (" \ " if index_header[-1] else "") + str(df.columns.name)
-        result = [index_header + list(df.columns)]    
+        result = [index_header + list(df.columns)]
 
-    if isinstance(df.index, pa.MultiIndex):
-        prev_ix = None
-        for ix, row in df.iterrows():
-            header = list(ix)
-            if prev_ix:
-                header = [x if x != px else "" for (x, px) in zip(ix, prev_ix)]
-            result.append(header + list(row))
-            prev_ix = ix
-
-    elif index_header:
-        for ix, row in df.iterrows():
-            result.append([ix] + list(row))
+    if index_header:
+        index_labels = _index_to_rows(df.index)
+        for (ix, row), labels in zip(df.iterrows(), index_labels):
+            result.append(labels + list(row))
     else:
         for ix, row in df.iterrows():
             result.append(list(row))
@@ -125,7 +134,8 @@ def _series_to_var(s):
     # convert any errors to exceptions so they appear correctly in Excel
     s = s.apply(lambda x: RuntimeError() if isinstance(x, float) and np.isnan(x) else x)
 
-    result = list(map(list, zip(s.index, s)))
+    index_labels = _index_to_rows(s.index)
+    result = [ix + [x] for ix, x in zip(index_labels, s)]
     return _normalize_dates(result)
 
 
@@ -138,7 +148,8 @@ def _series_to_var_transform(s):
     # convert any errors to exceptions so they appear correctly in Excel
     s = s.apply(lambda x: RuntimeError() if isinstance(x, float) and np.isnan(x) else x)
 
-    result = list(map(list, zip(*zip(s.index, s))))
+    index_labels = _index_to_cols(s.index)
+    result = index_labels + [list(s)]
     return _normalize_dates(result)
 
 
