@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(name='pyxll_utils',
-      version='2.0',
+      version='2.1',
       author='PyXLL Ltd, Enthought Inc.',
       license='BSD 2-Clause "Simplified" License',
       long_description=open('README.md').read(),
