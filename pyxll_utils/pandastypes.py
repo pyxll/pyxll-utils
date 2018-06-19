@@ -213,9 +213,9 @@ def _normalize_dates(data):
     isn't harmful either).
     """
     def normalize_date(x):
-        if isinstance(x, pa.tslib.NaTType):
-            return ValueError()
-        elif isinstance(x, pa.tslib.Timestamp) or isinstance(x, dt.datetime):
+        if isinstance(x, type(pa.NaT)):
+            return ArithmeticError("#NaT")
+        elif isinstance(x, pa.Timestamp) or isinstance(x, dt.datetime):
             return dt.datetime(*x.timetuple()[:6], tzinfo=x.tzinfo or UTC)
         elif isinstance(x, dt.date):
             return dt.datetime(*x.timetuple()[:3], tzinfo=UTC)
